@@ -26,6 +26,8 @@ jobs:
       - name: Install php dependencies
         uses: php-actions/composer@v6
         with:
+          php_version: "8.4"
+          php_extensions: intl zip zlib openssl
           dev: no
           args: --profile --optimize-autoloader
       
