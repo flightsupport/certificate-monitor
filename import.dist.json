@@ -1,0 +1,7 @@
+[
+    {
+        "url": "https://localhost:8000",
+        "uptime_check_enabled": false,
+        "certificate_check_enabled": true
+    }
+]
