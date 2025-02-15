@@ -23,6 +23,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install php dependencies
+        uses: php-actions/composer@v6
+        with:
+          dev: no
+          args: --profile --optimize-autoloader
+      
+      - name: Install npm dependencies
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm i
+      - run: npm run build
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
