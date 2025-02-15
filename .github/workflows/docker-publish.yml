@@ -27,7 +27,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: sigstore/cosign-installer@59acb6260d9c0ba8f4a2f9d9b48431a222b68e20
         with:
-          cosign-release: 'v2.2.4'
+          cosign-release: "v2.2.4"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226
@@ -51,6 +51,12 @@ jobs:
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-scheduler
+
+      - name: Extract Docker metadata for nginx
+        id: meta-nginx
+        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-nginx
 
       - name: Build and push Docker image for app
         id: build-and-push-app
@@ -76,6 +82,18 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Build and push Docker image for nginx
+        id: build-and-push-nginx
+        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09
+        with:
+          context: .
+          file: docker/nginx/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta-scheduler.outputs.tags }}
+          labels: ${{ steps.meta-scheduler.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       - name: Sign the published Docker image for app
         if: github.event_name != 'pull_request'
         env:
@@ -88,4 +106,11 @@ jobs:
         env:
           TAGS: ${{ steps.meta-scheduler.outputs.tags }}
           DIGEST: ${{ steps.build-and-push-scheduler.outputs.digest }}
+        run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+      - name: Sign the published Docker image for nginx
+        if: github.event_name != 'pull_request'
+        env:
+          TAGS: ${{ steps.meta-nginx.outputs.tags }}
+          DIGEST: ${{ steps.build-and-push-nginx.outputs.digest }}
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
