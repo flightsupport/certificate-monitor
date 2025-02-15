@@ -89,8 +89,8 @@ jobs:
           context: .
           file: docker/nginx/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta-scheduler.outputs.tags }}
-          labels: ${{ steps.meta-scheduler.outputs.labels }}
+          tags: ${{ steps.meta-nginx.outputs.tags }}
+          labels: ${{ steps.meta-nginx.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
