@@ -15,13 +15,13 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/app/Dockerfile
     environment:
       - APP_ENV=production
       - DB_CONNECTION=sqlite
-      - DB_DATABASE=${DB_DATABASE:-/var/www/html/database/database.sqlite}
+      - DB_DATABASE=/var/www/html/db/database.sqlite
     volumes:
-      - app-data:/var/www/html
+      - ./db:/var/www/html/db
       - ./import.json:/app/import.json
 
   web:
@@ -32,25 +32,6 @@ services:
       - "8000:80"
     depends_on:
       - app
-    volumes:
-      - app-data:/var/www/html:ro
-
-  scheduler:
-    build:
-      context: .
-      dockerfile: ./docker/scheduler/Dockerfile
-    command: [ "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf" ]
-    depends_on:
-      - app
-    environment:
-      - APP_ENV=production
-      - DB_CONNECTION=sqlite
-      - DB_DATABASE=${DB_DATABASE:-/var/www/html/database/database55.sqlite}
-    volumes:
-      - app-data:/var/www/html
-
-volumes:
-  app-data:
 ```
 
 #### Config env variables 

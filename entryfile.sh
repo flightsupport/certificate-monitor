@@ -22,6 +22,7 @@ if [ -n "$DB_DATABASE" ]; then
         if [ ! -f "$DB_DATABASE" ]; then
             echo "Creating SQLite database file: $DB_DATABASE"
             touch "$DB_DATABASE"
+            chown www-data:www-data $DB_DATABASE
             # Run migrations
             php artisan migrate --force
 
