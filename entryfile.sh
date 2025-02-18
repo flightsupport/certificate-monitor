@@ -22,7 +22,6 @@ if [ -n "$DB_DATABASE" ]; then
         if [ ! -f "$DB_DATABASE" ]; then
             echo "Creating SQLite database file: $DB_DATABASE"
             touch "$DB_DATABASE"
-            chown www-data:www-data $DB_DATABASE
             # Run migrations
             php artisan migrate --force
 
@@ -53,6 +52,8 @@ if [ -f /run/secrets/MAIL_PASSWORD ]; then
 else
     export MAIL_PASSWORD=${MAIL_PASSWORD:-""}
 fi
+
+chown -R www-data:www-data /var/www/
 
 # Execute the CMD from the Dockerfile (if any)
 exec "$@"
