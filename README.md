@@ -51,6 +51,10 @@ Add these to the `compose.yaml` file.
 | UPTIME_MONITOR_EMAIL | where to send notifications |
 | UPTIME_MONITOR_EXPIRE_DAYS | default:10 |
 
+The environment variables `MAIL_USERNAME` and `MAIL_PASSWORD` can be set as Docker Swarm secrets.
+Just delete the env variables and set the secrets.
+The `entryfile.sh` loads the secrets.
+
 
 ### 2️⃣ Create an `import.json` file
 

@@ -41,5 +41,18 @@ if [ -n "$DB_DATABASE" ]; then
     fi
 fi
 
+# Check if secret file exists, otherwise use the environment variable (docker swarm)
+if [ -f /run/secrets/MAIL_USERNAME ]; then
+    export MAIL_USERNAME=$(cat /run/secrets/MAIL_USERNAME)
+else
+    export MAIL_USERNAME=${MAIL_USERNAME:-""}
+fi
+
+if [ -f /run/secrets/MAIL_PASSWORD ]; then
+    export MAIL_PASSWORD=$(cat /run/secrets/MAIL_PASSWORD)
+else
+    export MAIL_PASSWORD=${MAIL_PASSWORD:-""}
+fi
+
 # Execute the CMD from the Dockerfile (if any)
 exec "$@"
