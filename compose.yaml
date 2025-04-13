@@ -7,9 +7,9 @@ services:
       - APP_ENV=production
       - MAIL_MAILER=log
       - DB_CONNECTION=sqlite
-      - DB_DATABASE=/var/www/html/db/database.sqlite
+      - DB_DATABASE=/var/www/html/database/database.sqlite
     volumes:
-      - ./db:/var/www/html/db
+      - ./database:/var/www/html/database
       - ./import.json:/app/import.json
 
   web:
