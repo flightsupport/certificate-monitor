@@ -27,6 +27,7 @@
                                     <th class="border p-2">Last Checked</th>
                                     <th class="border p-2">Certificate status</th>
                                     <th class="border p-2">Certificate expiration</th>
+                                    <th class="border p-2">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,6 +60,18 @@
                                             <span title="{{ $monitor->certificate_expiration_date }}">
                                                 {{ $monitor->certificate_expiration_date ? $monitor->certificate_expiration_date->diffForHumans() : 'Never' }}
                                             </span>
+                                        </td>
+                                        <td>
+                                            <div class="flex flex-col-2 gap-2 p-2">
+                                                <a href="{{ route('monitors.edit', $monitor) }}"
+                                                    class="hover:underline">Edit</a>
+                                                <form action="{{ route('monitors.destroy', $monitor) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="hover:underline decoration-amber-600">Delete</button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
