@@ -58,8 +58,15 @@
                                         </td>
                                         <td>
                                             <span title="{{ $monitor->certificate_expiration_date }}">
-                                                {{ $monitor->certificate_expiration_date ? $monitor->certificate_expiration_date->diffForHumans() : 'Never' }}
+                                                @if ($monitor->certificate_expiration_date)
+                                                    {{ $monitor->certificate_expiration_date->isFuture()
+                                                        ? (int) now()->diffInDays($monitor->certificate_expiration_date) . ' days from now'
+                                                        : (int) now()->diffInDays($monitor->certificate_expiration_date) . ' days ago' }}
+                                                @else
+                                                    Never
+                                                @endif
                                             </span>
+
                                         </td>
                                         <td>
                                             <div class="flex flex-col-2 gap-2 p-2">
