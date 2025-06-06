@@ -47,7 +47,7 @@
                                             </span>
                                         </td>
                                         <td class="p-2">
-                                            {{ $monitor->last_checked_at ? $monitor->last_checked_at->diffForHumans() : 'Never' }}
+                                            {{ $monitor->uptime_last_check_date ? $monitor->uptime_last_check_date->diffForHumans() : 'Never' }}
                                         </td>
                                         <td class="p-2">
                                             <span
