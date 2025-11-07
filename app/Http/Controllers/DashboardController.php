@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Spatie\UptimeMonitor\Models\Monitor;
 
 class DashboardController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $monitors = Monitor::all();
+        $sortBy = $request->get('sort', 'url');
+        $sortDirection = $request->get('direction', 'asc');
 
-        return view('dashboard', compact(['monitors']));
+        $monitors = Monitor::orderBy($sortBy, $sortDirection)->get();
+
+        return view('dashboard', compact(['monitors', 'sortBy', 'sortDirection']));
 
     }
 }

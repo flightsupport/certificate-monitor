@@ -22,11 +22,51 @@
                         <table class="w-full border-collapse border border-gray-300 dark:border-gray-700">
                             <thead>
                                 <tr class="bg-gray-200 dark:bg-gray-700">
-                                    <th class="border p-2">URL</th>
-                                    <th class="border p-2">Status</th>
-                                    <th class="border p-2">Last Checked</th>
-                                    <th class="border p-2">Certificate status</th>
-                                    <th class="border p-2">Certificate expiration</th>
+                                    <th class="border p-2">
+                                        <a href="{{ route('dashboard.index', ['sort' => 'url', 'direction' => $sortBy === 'url' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}"
+                                           class="flex items-center justify-between hover:text-gray-600 dark:hover:text-gray-300">
+                                            URL
+                                            @if ($sortBy === 'url')
+                                                <span class="ml-1">{{ $sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                                            @endif
+                                        </a>
+                                    </th>
+                                    <th class="border p-2">
+                                        <a href="{{ route('dashboard.index', ['sort' => 'uptime_status', 'direction' => $sortBy === 'uptime_status' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}"
+                                           class="flex items-center justify-between hover:text-gray-600 dark:hover:text-gray-300">
+                                            Status
+                                            @if ($sortBy === 'uptime_status')
+                                                <span class="ml-1">{{ $sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                                            @endif
+                                        </a>
+                                    </th>
+                                    <th class="border p-2">
+                                        <a href="{{ route('dashboard.index', ['sort' => 'uptime_last_check_date', 'direction' => $sortBy === 'uptime_last_check_date' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}"
+                                           class="flex items-center justify-between hover:text-gray-600 dark:hover:text-gray-300">
+                                            Last Checked
+                                            @if ($sortBy === 'uptime_last_check_date')
+                                                <span class="ml-1">{{ $sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                                            @endif
+                                        </a>
+                                    </th>
+                                    <th class="border p-2">
+                                        <a href="{{ route('dashboard.index', ['sort' => 'certificate_status', 'direction' => $sortBy === 'certificate_status' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}"
+                                           class="flex items-center justify-between hover:text-gray-600 dark:hover:text-gray-300">
+                                            Certificate status
+                                            @if ($sortBy === 'certificate_status')
+                                                <span class="ml-1">{{ $sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                                            @endif
+                                        </a>
+                                    </th>
+                                    <th class="border p-2">
+                                        <a href="{{ route('dashboard.index', ['sort' => 'certificate_expiration_date', 'direction' => $sortBy === 'certificate_expiration_date' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}"
+                                           class="flex items-center justify-between hover:text-gray-600 dark:hover:text-gray-300">
+                                            Certificate expiration
+                                            @if ($sortBy === 'certificate_expiration_date')
+                                                <span class="ml-1">{{ $sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                                            @endif
+                                        </a>
+                                    </th>
                                     <th class="border p-2">Actions</th>
                                 </tr>
                             </thead>
