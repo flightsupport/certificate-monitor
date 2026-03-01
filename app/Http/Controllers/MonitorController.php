@@ -11,7 +11,7 @@ class MonitorController extends Controller
 {
     public function edit(Monitor $monitor): View
     {
-        return view('monitor.edit', compact(['monitor']));
+        return view('monitor.edit', ['monitor' => $monitor]);
     }
 
     public function update(MonitorUpdateRequest $request, Monitor $monitor): RedirectResponse
@@ -26,7 +26,7 @@ class MonitorController extends Controller
         ];
 
         foreach ($optionalDefaults as $key => $default) {
-            $validated[$key] = $validated[$key] ?? $default;
+            $validated[$key] ??= $default;
         }
 
         $monitor->update($validated);

@@ -25,7 +25,7 @@ class TestNotification extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): ?int
     {
         $to = config('uptime-monitor.notifications.mail.to');
         if (empty($to)) {
@@ -36,5 +36,6 @@ class TestNotification extends Command
 
         $this->line('Sending test notification to: ' . $to);
         Mail::to($to)->send(new MailTestNotification());
+        return null;
     }
 }

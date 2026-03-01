@@ -15,7 +15,7 @@ class DashboardController extends Controller
 
         $monitors = Monitor::orderBy($sortBy, $sortDirection)->get();
 
-        return view('dashboard', compact(['monitors', 'sortBy', 'sortDirection']));
+        return view('dashboard', ['monitors' => $monitors, 'sortBy' => $sortBy, 'sortDirection' => $sortDirection]);
 
     }
 }
