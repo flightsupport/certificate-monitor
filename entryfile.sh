@@ -53,7 +53,5 @@ else
     export MAIL_PASSWORD=${MAIL_PASSWORD:-""}
 fi
 
-chown -R www-data:www-data /var/www/
-
 # Execute the CMD from the Dockerfile (if any)
 exec "$@"

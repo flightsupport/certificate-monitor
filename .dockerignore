@@ -1,3 +1,44 @@
+# Version control
 .git
-database/database*.sqlite
-storage/logs/*
+.gitattributes
+.gitignore
+
+# Environment files
+.env*
+!.env.example
+
+# Docker/infra (not needed inside the image)
+compose.yaml
+.infrastructure/
+!.infrastructure/ImageMagick/policy.xml
+
+# Dev tooling configs
+.vscode/
+.editorconfig
+.prettierrc.json
+.prettierignore
+.php-cs-fixer.php
+.php-cs-fixer.cache
+phpstan.neon
+rector.php
+eslint.config.js
+.phpunit.result.cache
+AGENTS.md
+.gitlab-ci.yml
+.DS_Store
+
+# Dependencies (rebuilt in build stages)
+node_modules/
+vendor/
+
+# Docs
+readme.md
+README.md
+
+# Data / local dev
+database/**/*.sqlite
+dovecot_config/
+bioman/
+brand-update/
+stats.sh
+
