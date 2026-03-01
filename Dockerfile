@@ -59,7 +59,7 @@ COPY --chown=www-data:www-data . /var/www/html
 COPY --from=composer-deps --chown=www-data:www-data /var/www/html/vendor ./vendor
 COPY --from=frontend --chown=www-data:www-data /var/www/html/public ./public
 
-# RUN cp .env.example .env
+RUN cp .env.example .env
 
 USER root
 COPY entryfile.sh /entryfile.sh

@@ -14,8 +14,31 @@ services:
       - OCTANE_HTTPS=false
       - DB_CONNECTION=sqlite
       - DB_DATABASE=/var/www/html/database/database.sqlite
+      - PHP_OPCACHE_ENABLE=true
+      - AUTORUN_ENABLED=true
     volumes:
       - ./database:/var/www/html/database
       - ./import.json:/app/import.json
     ports:
       - 8080:8080
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: production
+    command: ["php", "/var/www/html/artisan", "schedule:work"]
+    stop_signal: SIGTERM
+    healthcheck:
+      test: ["CMD", "healthcheck-schedule"]
+      start_period: 10s
+    environment:
+      - APP_ENV=production
+      - MAIL_MAILER=log
+      - OCTANE_HTTPS=false
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/var/www/html/database/database.sqlite
+      - PHP_OPCACHE_ENABLE=true
+      - AUTORUN_ENABLED=true
+    volumes:
+      - ./database:/var/www/html/database

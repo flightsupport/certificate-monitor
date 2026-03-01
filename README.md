@@ -15,23 +15,18 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/app/Dockerfile
+      dockerfile: ./Dockerfile
+      target: production
+    command: ["php", "artisan", "octane:start", "--server=frankenphp", "--port=8080"]
     environment:
       - APP_ENV=production
       - DB_CONNECTION=sqlite
-      - DB_DATABASE=/var/www/html/db/database.sqlite
+      - DB_DATABASE=/var/www/html/database/database.sqlite
     volumes:
-      - ./db:/var/www/html/db
+      - ./database:/var/www/html/database
       - ./import.json:/app/import.json
-
-  web:
-    build:
-      context: .
-      dockerfile: ./docker/nginx/Dockerfile
     ports:
-      - "8000:80"
-    depends_on:
-      - app
+      - 8080:8080
 ```
 
 #### Config env variables 
@@ -80,14 +75,12 @@ docker compose up -d
 
 This will set up and run the necessary services in the background.
 
-Visit `http://localhost:8000/register`to get started.
+Visit `http://localhost:8080/register` to get started.
 
 ## 📝 Configuration
 
-- The app service handles certificate and uptime monitoring.
-- The web service runs an Nginx server on port `8000`.
-- The scheduler service runs background tasks for monitoring.
-- The database is stored in an SQLite file inside the container.
+- The app service handles certificate and uptime monitoring using FrankenPHP with Laravel Octane on port `8080`.
+- The database is stored in an SQLite file, persisted via a volume mount at `./database`.
 
 ## 📌 Notes
 
