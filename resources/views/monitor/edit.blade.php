@@ -28,10 +28,10 @@
                             </div>
 
                             <div>
-                                <x-input-label for="lookForString" :value="__('Look for String')" />
-                                <x-text-input id="lookforstring" name="lookforstring" type="text"
-                                    class="mt-1 block w-full" :value="old('lookforstring', $monitor->look_for_string)" />
-                                <x-input-error class="mt-2" :messages="$errors->get('lookforstring')" />
+                                <x-input-label for="look_for_string" :value="__('Look for String')" />
+                                <x-text-input id="look_for_string" name="look_for_string" type="text"
+                                    class="mt-1 block w-full" :value="old('look_for_string', $monitor->look_for_string)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('look_for_string')" />
                             </div>
 
                             <x-input-label for="uptime_check_enabled" :value="__('Uptime check enabled')" />
