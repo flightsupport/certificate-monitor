@@ -31,7 +31,7 @@ class MonitorController extends Controller
 
         $monitor->update($validated);
 
-        return back();
+        return redirect(route('dashboard.index'));
     }
 
     public function destroy(Monitor $monitor): RedirectResponse
