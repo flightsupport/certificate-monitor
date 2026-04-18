@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn() => redirect(route('login')));
+Route::get('/', fn(): \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector => redirect(route('login')));
 
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
