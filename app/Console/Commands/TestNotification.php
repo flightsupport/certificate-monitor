@@ -15,6 +15,7 @@ class TestNotification extends Command
      *
      * @var string
      */
+    #[\Override]
     protected $signature = 'notification:test';
 
     /**
@@ -22,6 +23,7 @@ class TestNotification extends Command
      *
      * @var string
      */
+    #[\Override]
     protected $description = 'Test notification';
 
     /**
