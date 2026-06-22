@@ -11,7 +11,7 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
     // uncomment to reach your current PHP version
-    ->withPhpSets(php84: true)
+    ->withPhpSets(php85: true)
     ->withComposerBased(laravel: true)
     ->withPreparedSets(
         deadCode: true,
