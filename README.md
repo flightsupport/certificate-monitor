@@ -17,7 +17,6 @@ services:
       context: .
       dockerfile: ./Dockerfile
       target: production
-    command: ["php", "artisan", "octane:start", "--server=frankenphp", "--port=8080"]
     environment:
       - APP_ENV=production
       - DB_CONNECTION=sqlite
@@ -79,7 +78,7 @@ Visit `http://localhost:8080/register` to get started.
 
 ## 📝 Configuration
 
-- The app service handles certificate and uptime monitoring using FrankenPHP with Laravel Octane on port `8080`.
+- The app service handles certificate and uptime monitoring using FrankenPHP with Laravel on port `8080`.
 - The database is stored in an SQLite file, persisted via a volume mount at `./database`.
 
 ## 📌 Notes

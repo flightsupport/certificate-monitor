@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM serversideup/php:8.5-frankenphp AS base
+FROM serversideup/php:8.5-fpm-nginx AS base
 
 USER root
 
@@ -62,8 +62,10 @@ COPY --from=frontend --chown=www-data:www-data /var/www/html/public ./public
 RUN cp .env.example .env
 
 USER root
-COPY entryfile.sh /entryfile.sh
-RUN chmod +x /entryfile.sh
+# Run our custom setup as one of the base image's entrypoint.d scripts,
+# instead of overriding ENTRYPOINT/CMD. This preserves the base image's
+# built-in entrypoint, which generates /etc/nginx/nginx.conf from its
+# template and starts php-fpm/nginx via /init.
+COPY --chmod=755 entryfile.sh /etc/entrypoint.d/40-app-init.sh
 
 USER www-data
-ENTRYPOINT ["/entryfile.sh"]

@@ -58,9 +58,6 @@ vendor/bin/phpunit tests/Feature/ProfileTest.php
 
 ### Code Quality
 ```bash
-# Run Laravel Pint (code style fixer)
-vendor/bin/pint
-
 # Run PHP CS Fixer
 vendor/bin/php-cs-fixer fix
 
